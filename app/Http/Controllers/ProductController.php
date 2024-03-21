@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -20,6 +21,15 @@ class ProductController extends Controller
      */
     public function create(Request $request)
     {
+        $validation = Validator::make($request->all(), [
+            'name'=> 'required|string|min:3|max:30',
+            'amout'=> 'required|numeric'
+        ]);
+
+        if($validation->fails()){
+            return $validation->errors();
+        }
+        
         return Product::create($request->input());
     }
 

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 50);
             $table->longText('description')->nullable();
-            $table->decimal('value', 8, 2, true);
+            $table->decimal('amout', 8, 2, true);
             $table->enum('status', ['inactive', 'active'])->default('active');
             $table->timestamps();
         });
