@@ -22,17 +22,25 @@ class ProductController extends Controller
     public function create(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'name'=> 'required|string|min:3|max:30',
+            'name'=> 'required|string|min:3|max:30|unique:products,name',
             'amout'=> 'required|numeric'
+        ], [
+            'name.required' => 'O campo nome é obrigatório',
+            'name.unique' => 'O nome já está sendo utilizado',
+            'name.min' => 'O nome precisa ter mais de 3 caracteres',
+            'name.max' => 'O nome precisa ter menos de 30 caracteres',
+            'amout.required' => 'O campo amout é obrigatório',
+            'amout.numeric' => 'O valor precisa ser um número',
         ]);
 
         if($validation->fails()){
-            return $validation->errors();
+            return response()->json($validation->errors(), 422);
         }
-        
-        return Product::create($request->input());
+        return response()->json([
+            'message' => 'Product created!',
+            'product' => Product::create($request->input())
+        ]);
     }
-
     /**
      * Store a newly created resource in storage.
      */
