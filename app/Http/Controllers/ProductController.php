@@ -36,9 +36,16 @@ class ProductController extends Controller
         if($validation->fails()){
             return response()->json($validation->errors(), 422);
         }
+
+        $product = Product::create([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'amout' => $request->input('amout'),
+        ]);
+
         return response()->json([
             'message' => 'Product created!',
-            'product' => Product::create($request->input())
+            'product' => $product
         ]);
     }
     /**
