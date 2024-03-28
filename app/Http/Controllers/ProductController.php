@@ -23,7 +23,8 @@ class ProductController extends Controller
     {
         $validation = Validator::make($request->all(), [
             'name'=> 'required|string|min:3|max:30|unique:products,name',
-            'amout'=> 'required|numeric'
+            'amout'=> 'required|numeric',
+            'description' => 'string'
         ], [
             'name.required' => 'O campo nome é obrigatório',
             'name.unique' => 'O nome já está sendo utilizado',
@@ -65,19 +66,22 @@ class ProductController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Product $product)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $validation = Validator::make($request->all(), [
+            'name' => 'string|min:3|max:30|unique:products,name',
+            'amout' => 'numeric',
+            'desription' => 'string',
+            'status' => 'string|in:active,inactive'
+        ]);
+
+        if($validation->fails()){
+            return response()->json($validation->errors(), 422);
+        }
+
+        return $product->fill($request->input())->update();
     }
 
     /**
