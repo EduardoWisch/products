@@ -81,7 +81,11 @@ class ProductController extends Controller
             return response()->json($validation->errors(), 422);
         }
 
-        return $product->fill($request->input())->update();
+        $product->fill($request->input())->update();
+        return response()->json([
+          'message' => 'Product updated',
+          'product' => $product 
+        ]);
     }
 
     /**
@@ -89,6 +93,10 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return response()->json([
+            'message' => 'Product deleted'
+          ]);
     }
 }
