@@ -42,6 +42,7 @@ class ProductController extends Controller
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'amout' => $request->input('amout'),
+            'seller_id' => $request->input('seller_id'),
         ]);
 
         return response()->json([
@@ -49,14 +50,7 @@ class ProductController extends Controller
             'product' => $product
         ]);
     }
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
+    
     /**
      * Display the specified resource.
      */

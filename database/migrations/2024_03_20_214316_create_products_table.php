@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('seller_id')->references('id')->on('sellers')->onDelete('cascade')->onUpdate('cascade');
             $table->string('name', 50);
             $table->longText('description')->nullable();
             $table->decimal('amout', 8, 2, true);
