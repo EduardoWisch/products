@@ -42,7 +42,7 @@ class ProductController extends Controller
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'amout' => $request->input('amout'),
-            'seller_id' => $request->input('seller_id'),
+            'seller_id' => 1
         ]);
 
         return response()->json([
