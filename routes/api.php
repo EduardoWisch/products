@@ -13,5 +13,5 @@ Route::prefix('product')->controller(ProductController::class)->group(function()
     Route::get('/{product}', 'show');
     Route::put('/{product}', 'update');
     Route::delete('/{product}', 'destroy');
-    //teste
+    //testes
 });
